@@ -1,0 +1,263 @@
+* {
+  box-sizing: border-box;
+}
+:root {
+  --tongue: #c12115;
+  --pupil: #fff;
+  --stroke: #1a1a1a;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+body {
+  --frosting: hsl(var(--frosting-hue, 0), 100%, 55%);
+  --lightness: 50;
+  --flame: 0;
+  --glow-hue: 40;
+  --glow-saturation: 50;
+  --glow-lightness: 35;
+  --glow-alpha: 0.4;
+  --transparency-alpha: 0;
+  --glow: hsla(var(--glow-hue), calc(var(--glow-saturation) * 1%), calc(var(--glow-lightness) * 1%), var(--glow-alpha));
+  --transparent: hsla(0, 0%, 0%, var(--transparency-alpha));
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  position: relative;
+
+  background-image: url('fondo.png'); 
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  z-index: 1000;
+  opacity: calc(1 - var(--lightness, 50) / 50);
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.whitespace {
+  width: 7px;
+}
+.birthday-button {
+  position: relative;
+  transform: scale(0.6);
+  cursor: pointer;
+  z-index: 1001; 
+}
+
+.birthday-button__text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fff !important;
+  text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+}
+.birthday-button__text .char {
+  display: inline-block;
+  color: hsl(var(--hue, 0), calc(var(--char-sat, 0) * 1%), calc(var(--char-light, 0) * 1%));
+}
+.birthday-button:before {
+  content: '';
+  position: absolute;
+  height: 240px;
+  width: 240px;
+  background: radial-gradient(var(--glow), var(--transparent) 30%), radial-gradient(var(--glow), var(--transparent) 50%);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -70%) scale(calc(var(--flame) * 3));
+  z-index: 2;
+  filter: blur(15px);
+  opacity: var(--flame);
+}
+.birthday-button:after {
+  content: '';
+  height: 30px;
+  width: 400px;
+  filter: blur(15px);
+  position: absolute;
+  background: radial-gradient(var(--glow), var(--transparent) 20%), radial-gradient(var(--glow), var(--transparent));
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(calc(var(--flame) * 1));
+  opacity: var(--flame);
+}
+.birthday-button__button {
+  width: 400px;
+  height: 150px;
+  position: relative;
+  border: 0;
+  border-radius: 25px;
+  cursor: pointer;
+  background: linear-gradient(45deg, #FF7E9B, #FFB899);
+  box-shadow: 0 5px 20px -5px rgba(255, 126, 155, 0.8);
+  transition: all 0.2s ease-in-out;
+}
+.birthday-button__button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.birthday-button__cake {
+  position: absolute; 
+  width: 480px;    
+  height: auto;      
+  left: 50%;          
+  transform: translateX(-50%); 
+  bottom: -1px;        
+}
+
+.glowing-text {
+  position: absolute;
+  margin-top: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 550px;
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+
+  font-family: 'Playfair Display', serif;
+  font-size: 3.2rem;
+  color: #ffebb3; 
+  text-shadow:
+    0 0 5px #fff,
+    0 0 10px #ffc400,
+    0 0 20px #ff9a00, 
+    0 0 40px #ff9a00;
+}
+
+.cake__eye-body {
+  fill: var(--stroke);
+}
+.cake__eye-pupil {
+  fill: var(--pupil);
+}
+.cake__tongue {
+  fill: var(--tongue);
+}
+.cake__mouth-opening {
+  fill: var(--stroke);
+  stroke: var(--stroke);
+}
+.cake__sprinkle {
+  --sprinkle: hsl(var(--sprinkle-hue, 0), 100%, 75%);
+  fill: var(--sprinkle);
+}
+.cake__frosting--start {
+  fill: var(--frosting);
+}
+.cake__frosting--duplicate {
+  fill: var(--frosting);
+}
+.candle__flame {
+  opacity: var(--flame, 0);
+}
+.candle__flame-outer {
+  fill: #ff711f;
+}
+.candle__flame-inner {
+  fill: #edca1d;
+}
+.face__stroke {
+  stroke: var(--stroke);
+}
+.cake__candle:nth-of-type(1) {
+  --flame: 0;
+}
+.cake__candle:nth-of-type(2) {
+  --flame: 0;
+}
+.cake__candle:nth-of-type(3) {
+  --flame: 0;
+}
+label {
+  height: 44px;
+  width: 44px;
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  cursor: pointer;
+  z-index: 1001; 
+}
+label path {
+  fill: #f2f2f2;
+}
+label svg:nth-of-type(1) {
+  display: none;
+}
+[type='checkbox'] {
+  height: 0;
+  width: 0;
+  position: absolute;
+  top: 0;
+  left: 100%;
+}
+:checked ~ label svg:nth-of-type(1) {
+  display: block;
+}
+:checked ~ label svg:nth-of-type(2) {
+  display: none;
+}
+
+.confetti-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 999;
+}
+.heart-confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: var(--heart-color);
+  top: -20px;
+  animation: fall 5s linear forwards;
+  transform: rotate(45deg);
+}
+.heart-confetti::before,
+.heart-confetti::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: inherit;
+  border-radius: 50%;
+}
+.heart-confetti::before {
+  top: -5px;
+  left: 0;
+}
+.heart-confetti::after {
+  top: 0;
+  left: -5px;
+}
